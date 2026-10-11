@@ -1,22 +1,22 @@
 import {body , validationResult} from "express-validator"
 
 
-const registerValidator = [
+export const registerValidator = [
 
     body('email')
-        .trim()
-        .exists().withMessage("email is required")
+    .exists().withMessage("email is required").bail()
+    .trim()
         .isEmail().withMessage("enter valid email id ") ,
 
     body('name')
-    .exists().withMessage('name is required')
+    .exists().withMessage('name is required').bail()
     .isString().withMessage("name must be string ")
     .trim()
     .isLength({min:2 , max:50}).withMessage("name length between 2 to 50 letters"),
 
 
     body('password')
-        .exists().withMessage('pass is required')
+        .exists().withMessage('pass is required').bail()
         .isString().withMessage('pass must be string ')
         .trim()
         .isLength({min:6}).withMessage("pass must be minimum 6 charachters"),
@@ -37,4 +37,3 @@ const registerValidator = [
 
 ]
 
-export default registerValidator

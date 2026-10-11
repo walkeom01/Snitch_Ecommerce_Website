@@ -1,12 +1,12 @@
 import {Router} from "express"
-import registerValidator from "../validators/auth.validators"
-
+import {registerValidator} from "../validators/auth.validators.js"
+import { register } from "../controller/aut.controller.js"
 
 
 const router = Router()
 
 //post for register api
-router.post('/register',registerValidator, )
+router.post('/register',registerValidator,register )
 
 
 

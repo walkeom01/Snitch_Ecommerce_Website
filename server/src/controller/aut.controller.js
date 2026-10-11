@@ -1,4 +1,6 @@
 import userModel from "../models/user.model.js"
+import bcryptjs from "bcryptjs"
+import { createAcesstoken , createRefreshtoken } from "../utils/auth.utils.js"
 
 
 /*
@@ -11,7 +13,41 @@ param req.body.name
 
 */
 
-async function register(req,res) {
+export async function register(req,res) {
     const {email , name ,password} = req.body
+
+    const isUseralreadyExist = await userModel.findOne({
+        email
+    })
+
+    if(isUseralreadyExist){
+        return res.status(400).json({
+            message:"user already exists",
+            errors:[
+                {
+                    field:"email",
+                    message:"user alreadt exist with same email "
+                }
+            ]
+        })
+    }
+
+    const user = await userModel.create({
+        email,
+        name,
+        passwordHash : await bcryptjs.hash(password,12)
+    })
+
+    const accesstoken = createAcesstoken({
+        userId:user._id,
+        role:user.role
+    })
+    
+    const refreshToken = createRefreshtoken({
+        userId:user._id,
+        role:user.role
+    })
+
+
 }
 
