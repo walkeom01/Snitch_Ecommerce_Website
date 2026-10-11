@@ -1,4 +1,4 @@
-import config from "../config/config";
+import config from "../config/config.js";
 import jwt from "jsonwebtoken"
 
 
@@ -16,4 +16,8 @@ export function createRefreshtoken({userId , role}){
     },config.REFRESH_TOKEN,{expiresIn:"7Days"})
 
     return refreshToken
+}
+
+export function readRefreshToken(refreshToken){
+    return jwt.verify(readRefreshToken,config.REFRESH_TOKEN)
 }

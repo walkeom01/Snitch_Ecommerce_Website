@@ -21,6 +21,8 @@ export const registerValidator = [
         .trim()
         .isLength({min:6}).withMessage("pass must be minimum 6 charachters"),
 
+
+        //middleware for response sending 
     (req,res,next) => {
         const errors = validationResult(req)
 
@@ -37,3 +39,30 @@ export const registerValidator = [
 
 ]
 
+
+export const loginValidator =[
+    body("email")
+        .exists().withMessage("email is required").bail()
+        .isString().withMessage("email is not valid ").bail()
+        .trim()
+        .isEmail().withMessage("enter valid email id "),
+    
+    body("password")
+        .exists().withMessage("password is required ")
+        .isString().withMessage("pass must be string ")
+        .trim()
+        .isLength({min:6}).withMessage("pass min charachter is 6 "),
+
+    (req,res,next)=>{
+        const errors = validationResult(req)
+
+        if(!errors.isEmpty()){
+            return res.status(400).json({
+                message:"invalid data",
+                errors:errors.array()
+            })
+            }
+
+        next()
+    }
+]
