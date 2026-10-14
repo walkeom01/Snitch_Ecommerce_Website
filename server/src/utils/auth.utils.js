@@ -18,6 +18,10 @@ export function createRefreshtoken({userId , role}){
     return refreshToken
 }
 
+export function readAcessToken(accessToken){
+    return jwt.verify(accessToken.config.ACCESS_TOKEN)
+}
+
 export function readRefreshToken(refreshToken){
     return jwt.verify(readRefreshToken,config.REFRESH_TOKEN)
 }
