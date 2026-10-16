@@ -1,8 +1,12 @@
-import { readAcessToken } from "../utils/auth.utils"
+import { readAcessToken } from "../utils/auth.utils.js"
 
-
+/**
+ * authentication ka rule hai accesstoken ko headers se hi read kiya jayega 
+ * aur kahi se nahi agar cookies me send karenge then it will not accept 
+ * 
+ */
 export function authenticate (req,res,next){
-    const accessToken = req.headers.Authorization?.split(" ")[1]
+    const accessToken = req.headers.authorization?.split(" ")[1]
 
     if(!accessToken){
         return res.status(400).json({

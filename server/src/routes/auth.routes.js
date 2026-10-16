@@ -14,6 +14,7 @@ router.post("/login",loginValidator,login)
 // post for refresh
 router.post("/refresh",refresh)
 
+//->/api/auth/me
 //note jo bhi request /me pe ayegi voh pehle authencticate par jayegi then getMe pe ayegi 
 router.get("/me",authenticate , getMe)
 export default router

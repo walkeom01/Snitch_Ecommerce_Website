@@ -133,7 +133,7 @@ export async function login(req, res) {
 }
 
 export async function refresh(req, res) {
-    const refreshToken = req.cookies.refreshToken
+    const refreshToken = req.cookies.refreshToken //cookies is used when we have to read data
 
     if (!refreshToken) {
         return res.status(401).json({
@@ -179,7 +179,7 @@ export async function refresh(req, res) {
             refreshToken: newRefreshToken
         })
 
-        res.cookie("refreshToken", newRefreshToken, {
+        res.cookie("refreshToken", newRefreshToken, { // cookie is used when we have to set data 
             httpOnly: true
         })
 
